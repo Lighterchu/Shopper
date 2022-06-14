@@ -20,9 +20,4 @@ module Screen
     def Passed(info) 
         puts info.green
     end
-
-    def Home(setHome)
-        setHome()
-    end 
-
 end

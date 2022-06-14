@@ -1,6 +1,7 @@
 #used to grab from the same file path
+load 'ar.rb'
 require_relative "ScreenHelper"
-require_relative "register"
+require_relative "usersClass"
 
 
 require 'uri'
@@ -8,11 +9,13 @@ require 'net/http'
 require 'json'
 require 'colorize'
 require 'cli/ui'
+
 #all helper functions for the screen
 include Screen
 homePage = ''
 registerPage = ''
-users = ''
+allusers = []
+
 
 
 
@@ -21,15 +24,16 @@ users = ''
 def HomePage()
     Screen.Clear()
     Screen.Title("LighterChu Shop")
+
+    
   
     output = CLI::UI::Prompt.ask('Welcome, what would you like todo') do |handler|
         handler.option('Register')  { |selection| selection  }
-        handler.option('Show User')  { |selection| selection  }
         handler.option('Login')     { |selection| selection }
+        handler.option('Buy Items')     { |selection| selection }
+        handler.option('Make Items')     { |selection| selection }
         handler.option('Quit')   { |selection| selection }
     end
-
-   
     ReadHomeInput(output)
     
   
@@ -43,6 +47,9 @@ def ReadHomeInput(input)
             CreateUser()
             # GetData()
         when "Show User"
+            Screen.Clear()
+            ShowUsers()
+        when "Make Items"
             Screen.Clear()
             ShowUsers()
     end
@@ -63,7 +70,16 @@ def CreateUser()
     puts "Your Last Name:"
     lastName = gets.chomp
     
-    users = User.new(email, userName,password,name,lastName)
+    users = MakeUser.new(email, userName,password,name,lastName)
+    user = User.new
+    user.email = email
+    user.user_name = userName
+    user.password = password
+    user.name  = name
+    user.last_name = lastName
+    
+    user.save
+    puts user.inspect
     users.AddUser()
     Screen.Clear()
     users.showUsers()
@@ -75,25 +91,14 @@ def CreateUser()
 end 
 
 
-def ShowUsers()
-    users.showUsers()
-end
-
-
-def GetData()
-    url = URI("https://fakestoreapi.com/products")
-    res = Net::HTTP.get(url)
-    res = JSON.parse(res)
-    res.map{|response|
-        puts response["title"]
-    }
-   
-
-end 
 
 
 
-# checkingsomething(array)
+
+
 HomePage()
-# GetData()
+
+
+
+
 

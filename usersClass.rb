@@ -1,4 +1,4 @@
-class User 
+class MakeUser 
     attr_accessor :email, :username, :password 
 
     @@users = {}
@@ -11,7 +11,7 @@ class User
     end 
 
     def showUsers()
-        @@users.each do |key, value|
+         @@users.each do |key, value|
             puts "#{key}: #{value}"
           end
     end   
