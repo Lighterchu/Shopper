@@ -51,9 +51,47 @@ def ReadHomeInput(input)
             ShowUsers()
         when "Make Items"
             Screen.Clear()
-            ShowUsers()
+            CreateProduct()
+        when "Home"
+            Screen.Clear()
+            HomePage()
     end
 end 
+
+def CreateProduct()
+    Screen.Title("add Items to the store")
+    Screen.Info("What items would you like to start you're store")
+
+    Screen.Info("Item Name:")
+    name = gets.chomp
+    Screen.Info("How much you want in the store:")
+    amount = gets.chomp
+    Screen.Info("What Price do you want to set:")
+    price = gets.chomp
+    
+    item = Product.new
+    item.name = name
+    item.amount = amount
+    item.price = price
+    
+    item.save
+    puts item.inspect
+    
+    Screen.Passed("Food added to the store!!!")
+
+    output = CLI::UI::Prompt.ask('Want to add more items or go back to home page quit') do |handler|
+        handler.option('Make Items')     { |selection| selection }
+        handler.option('Home')     { |selection| selection }
+        handler.option('Quit')   { |selection| selection }
+    end
+    ReadHomeInput(output)
+   
+   
+
+end 
+
+
+
 
 
 def CreateUser()
