@@ -5,6 +5,7 @@ class MakingProductTable < ActiveRecord::Migration[6.1]
       t.integer :amount
       t.integer :price
       t.belongs_to :user 
+      t.belongs_to :category
     end
   end
 end

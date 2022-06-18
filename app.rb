@@ -15,6 +15,7 @@ include Screen
 homePage = ''
 registerPage = ''
 allusers = []
+table = {}
 
 
 
@@ -32,6 +33,7 @@ def HomePage()
         handler.option('Login')     { |selection| selection }
         handler.option('Buy Items')     { |selection| selection }
         handler.option('Make Items')     { |selection| selection }
+        handler.option('Delete Table')     { |selection| selection }
         handler.option('Quit')   { |selection| selection }
     end
     ReadHomeInput(output)
@@ -46,16 +48,38 @@ def ReadHomeInput(input)
             Screen.Clear()
             CreateUser()
             # GetData()
-        when "Show User"
+        #this is not live right now ( low priority )
+        # when "Show User"
+        #     Screen.Clear()
+        #     ShowUsers()
+        when 'Buy Items'
             Screen.Clear()
-            ShowUsers()
+            ProductOption()
         when "Make Items"
             Screen.Clear()
             CreateProduct()
         when "Home"
             Screen.Clear()
             HomePage()
-    end
+        when "Delete Table"
+            Screen.Clear()
+            DeleteAllFromTable()
+    end 
+end  
+
+# Does not work right, but should remove the table from
+# that you have picked
+def DeleteAllFromTable()
+    Product.find_each do |tablInfo|
+        if(tablInfo.id === tablInfo.id) then
+            tablInfo.destroy()
+            tablInfo.save
+        end
+    end 
+end 
+
+def ProductOption()
+    puts Product.last.name
 end 
 
 def CreateProduct()
@@ -93,7 +117,6 @@ end
 
 
 
-
 def CreateUser()
     Screen.Title("REGISTER")
     Screen.Info("Just fill out some details and you will be register")
@@ -124,6 +147,7 @@ def CreateUser()
     
     Screen.Passed("Account Created!!!")
     Screen.Passed("Hit any key to go back to the Home Page")
+    puts "all users Test"
     gets
     HomePage()
 end 

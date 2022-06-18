@@ -11,10 +11,6 @@ ActiveRecord::Base.establish_connection(
 
 
 # Load all of our ActiveRecord::Base objects.
-# require_relative 'models/fruit.rb' # fruits table
-# require_relative 'models/phone.rb' # phones table
-# require_relative 'models/bread.rb'  # breads table
-# require_relative 'models/laptop.rb' # laptops table
 require_relative 'models/product.rb' # products table
 require_relative 'models/user.rb' # laptops table
 
