@@ -15,7 +15,7 @@ include Screen
 homePage = ''
 registerPage = ''
 allusers = []
-table = {}
+allProducts = {}
 
 
 
@@ -79,8 +79,20 @@ def DeleteAllFromTable()
 end 
 
 def ProductOption()
-    puts Product.last.name
+    output = CLI::UI::Prompt.ask('What would you like to Buy') do |handler|
+        Product.find_each do |productInfo|
+            if(productInfo.name != '') then
+                handler.option("#{productInfo.name} $#{productInfo.price} Stock Amount: #{productInfo.amount}")  { |selection| selection  }
+            end 
+        end
+    end
+    ReadProductInput(output)
 end 
+
+def ReadProductInput(input)
+    puts input
+    
+end  
 
 def CreateProduct()
     Screen.Title("add Items to the store")
