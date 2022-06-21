@@ -93,6 +93,13 @@ def ReadProductInput(input)
     puts input
     
 end  
+def TestingSomething(input)
+    # for key, value in input do
+        puts value
+    # end
+    # input.map{|name| puts name}
+    
+end  
 
 def CreateProduct()
     Screen.Title("add Items to the store")
